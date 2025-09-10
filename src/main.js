@@ -4,16 +4,23 @@ import { installLinkTracker } from './js/tracker.js';
 
 /**
  * Main application initialization
- * Enhances pre-rendered content and adds interactive functionality
+ * Loads data from JSON and renders dynamic content
  */
 async function load(){
   try {
-    // Enhance existing pre-rendered content with interactive functionality
-    enhanceGallery();
-    enhanceCards();
+    // Load site data from JSON
+    const response = await fetch('./content/site.json');
+    const data = await response.json();
+
+    // Render all dynamic content from JSON
+    hydrateContent(data);
+    renderGallery(data);
+    renderCards(data);
     wireModal();
   } catch (error) {
-    console.error('Failed to enhance site functionality:', error);
+    console.error('Failed to load site data:', error);
+    // Show error state
+    showErrorState();
   }
 }
 
@@ -58,19 +65,43 @@ function enhanceCards(){
 }
 
 /**
- * Hydrates text content from JSON data
- * Populates the article section with dynamic content
+ * Hydrates all text content from JSON data
+ * Populates titles and article content with dynamic data
  */
-function hydrateCopy(data){
-  // Update intro text
-  document.querySelector('[data-copy-intro]').textContent = data.hero.intro;
+function hydrateContent(data){
+  // Update page title
+  document.title = data.meta.siteTitle;
 
-  // Update kicker and callout - keeping kicker static as per design
+  // Update brand title
+  const brandTitle = document.querySelector('[data-brand-title]');
+  if (brandTitle) brandTitle.textContent = data.meta.brandTitle;
+
+  // Update hero section
+  const heroTitle = document.querySelector('[data-hero-title]');
+  if (heroTitle) heroTitle.textContent = data.hero.title;
+
+  const intro = document.querySelector('[data-copy-intro]');
+  if (intro) intro.textContent = data.hero.intro;
+
   const kicker = document.querySelector('[data-copy-kicker]');
-  kicker.textContent = 'THE PERFECT EGG';
+  if (kicker) kicker.textContent = data.hero.perfectEggLabel;
 
   const callout = document.querySelector('[data-copy-callout]');
-  callout.innerHTML = data.hero.perfectEgg;
+  if (callout) callout.innerHTML = data.hero.perfectEgg;
+
+  // Update palette title
+  const paletteTitle = document.querySelector('[data-palette-title]');
+  if (paletteTitle) paletteTitle.textContent = data.palette.title;
+}
+
+/**
+ * Shows error state when data loading fails
+ */
+function showErrorState() {
+  document.querySelector('[data-brand-title]').textContent = 'Error loading content';
+  document.querySelector('[data-hero-title]').textContent = 'Content Unavailable';
+  document.querySelector('[data-copy-intro]').textContent = 'Sorry, we could not load the content. Please try refreshing the page.';
+  document.querySelector('[data-palette-title]').textContent = 'Content Error';
 }
 
 /**

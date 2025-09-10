@@ -1,8 +1,16 @@
 {
+  "meta": {
+    "siteTitle": "Tasteology — What does cooking mean?",
+    "brandTitle": "My Interface Development Test"
+  },
   "hero": {
-    "intro": "Is it simply applying heat to a food product? A way of making certain food safe to eat? Or a way to create flavour and make food more appealing? This is just part of what Herv\u00e9 This, the father of molecular gastronomy, has dedicated his life to finding out. We spoke to him to find out what his experiments have told him. And in the process even discovered the secret to cooking the perfect egg...",
-    "body": "",
-    "perfectEgg": "<strong>Keep water between 67 and 68\u00b0C</strong> for a flavourful, tender yolk"
+    "title": "WHAT DOES COOKING MEAN?",
+    "intro": "Is it simply applying heat to a food product? A way of making certain food safe to eat? Or a way to create flavour and make food more appealing? This is just part of what Hervé This, the father of molecular gastronomy, has dedicated his life to finding out. We spoke to him to find out what his experiments have told him. And in the process even discovered the secret to cooking the perfect egg...",
+    "perfectEggLabel": "THE PERFECT EGG",
+    "perfectEgg": "<strong>Keep water between 67 and 68°C</strong> for a flavourful, tender yolk"
+  },
+  "palette": {
+    "title": "TASTE THE COLOURS"
   },
   "gallery": [
     {
