@@ -1,0 +1,68 @@
+{
+  "hero": {
+    "intro": "Is it simply applying heat to a food product? A way of making certain food safe to eat? Or a way to create flavour and make food more appealing? This is just part of what Herv\u00e9 This, the father of molecular gastronomy, has dedicated his life to finding out. We spoke to him to find out what his experiments have told him. And in the process even discovered the secret to cooking the perfect egg...",
+    "body": "",
+    "perfectEgg": "<strong>Keep water between 67 and 68\u00b0C</strong> for a flavourful, tender yolk"
+  },
+  "gallery": [
+    {
+      "src": "left.png",
+      "src2x": "left@2x.png",
+      "src3x": "left@3x.png",
+      "alt": "Pot over fire with water bath and tied parcel",
+      "caption": "Traditional heat meets precise temperature control"
+    },
+    {
+      "src": "right-top.png",
+      "src2x": "right-top@2x.png",
+      "src3x": "right-top@3x.png",
+      "alt": "Chef preparing tasting on tiled table",
+      "caption": "Careful preparation of tasting portions"
+    },
+    {
+      "src": "right-bottom.png",
+      "src2x": "right-bottom@2x.png",
+      "src3x": "right-bottom@3x.png",
+      "alt": "Tray of tiny egg bites on dark background",
+      "caption": "Texture and flavour testing"
+    }
+  ],
+  "cards": [
+    {
+      "title": "RED",
+      "body": "Red foods remind us of berries and soft fruits, so we anticipate a sweet taste.",
+      "linkLabel": "Learn more",
+      "href": "/colour/red",
+      "image": {
+        "src": "tight-top.png",
+        "src2x": "tight-top@2x.png",
+        "src3x": "tight-top@3x.png",
+        "alt": "Red jelly on spoon"
+      }
+    },
+    {
+      "title": "Green",
+      "body": "Fresh, zingy green colours are reminiscent of unripe fruit, promising sour or acid flavours",
+      "linkLabel": "Learn more",
+      "href": "/colour/green",
+      "image": {
+        "src": "tight-top-2.png",
+        "src2x": "tight-top-2@2x.png",
+        "src3x": "tight-top-2@3x.png",
+        "alt": "Green jelly on spoon"
+      }
+    },
+    {
+      "title": "White",
+      "body": "White foods evoke memories of salt and salty flavours, driving the expectation of a savoury treat.",
+      "linkLabel": "Learn more",
+      "href": "/colour/white",
+      "image": {
+        "src": "tight-top-3.png",
+        "src2x": "tight-top-3@2x.png",
+        "src3x": "tight-top-3@3x.png",
+        "alt": "White jelly on spoon"
+      }
+    }
+  ]
+}

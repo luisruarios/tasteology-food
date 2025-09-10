@@ -1,0 +1,19 @@
+{
+  "name": "tasteology-site",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Production-ready static site (vanilla) built with Vite. Gallery modal + cards tracking. Accessible, responsive, CMS-like JSON content.",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "devDependencies": {
+    "vite": "^5.4.0"
+  },
+  "browserslist": [
+    "defaults",
+    "last 2 versions",
+    "not dead"
+  ]
+}
