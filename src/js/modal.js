@@ -30,6 +30,19 @@ function detectKeyboardUsage() {
 // Initialize keyboard detection
 detectKeyboardUsage();
 
+// Ensure body scroll is restored if something goes wrong
+window.addEventListener('beforeunload', () => {
+  document.body.style.overflow = '';
+});
+
+// Safety check to restore scroll if modal is somehow left open
+window.addEventListener('DOMContentLoaded', () => {
+  const modal = document.getElementById('modal-root');
+  if (modal && modal.classList.contains('hidden')) {
+    document.body.style.overflow = '';
+  }
+});
+
 export function openModal(src, alt, caption, openMethod = 'mouse'){
   const root = document.getElementById('modal-root');
   const img = root.querySelector('.modal-img');
@@ -41,6 +54,9 @@ export function openModal(src, alt, caption, openMethod = 'mouse'){
   // Don't show caption - hide it
   cap.textContent = '';
   cap.style.display = 'none';
+
+  // Disable body scroll
+  document.body.style.overflow = 'hidden';
 
   // Show modal and make it accessible
   root.classList.remove('hidden');
@@ -112,6 +128,9 @@ export function closeModal(closeMethod = 'mouse'){
   if (root.contains(focusedElement)) {
     focusedElement.blur();
   }
+
+  // Re-enable body scroll
+  document.body.style.overflow = '';
 
   // Clean up event listeners properly WITHOUT cloning
   if (currentModalListeners) {
