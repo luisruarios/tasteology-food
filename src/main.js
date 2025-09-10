@@ -8,6 +8,9 @@ import { installLinkTracker } from './js/tracker.js';
  */
 async function load(){
   try {
+    // Initialize modal state properly
+    initializeModal();
+
     // Load site data from JSON
     const response = await fetch('./content/site.json');
     const data = await response.json();
@@ -17,10 +20,24 @@ async function load(){
     renderGallery(data);
     renderCards(data);
     wireModal();
+
+    // Mark page as fully loaded to prevent FOUC
+    document.body.classList.add('loaded');
   } catch (error) {
     console.error('Failed to load site data:', error);
     // Show error state
     showErrorState();
+    document.body.classList.add('loaded');
+  }
+}
+
+/**
+ * Initialize modal to prevent flash of content
+ */
+function initializeModal() {
+  const modal = document.getElementById('modal-root');
+  if (modal) {
+    modal.classList.add('ready', 'hidden');
   }
 }
 

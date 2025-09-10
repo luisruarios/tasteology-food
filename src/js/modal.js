@@ -58,7 +58,7 @@ export function openModal(src, alt, caption, openMethod = 'mouse'){
   // Disable body scroll
   document.body.style.overflow = 'hidden';
 
-  // Show modal and make it accessible
+  // Show modal and make it accessible - use ready class instead of hidden
   root.classList.remove('hidden');
   root.setAttribute('aria-hidden', 'false');
 

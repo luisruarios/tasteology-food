@@ -22,6 +22,43 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;700&display=swap" rel="stylesheet">
 
+    <!-- Critical CSS to prevent FOUC (Flash of Unstyled Content) -->
+    <style>
+      /* Critical styles to prevent layout shift */
+      body {
+        margin: 0;
+        font-family: 'Open Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+        background: #0f1515;
+        color: #fff;
+        opacity: 0;
+        transition: opacity 0.3s ease;
+      }
+      body.loaded { opacity: 1; }
+
+      /* Hide modal initially to prevent flash */
+      .modal {
+        display: none !important;
+        opacity: 0;
+        visibility: hidden;
+      }
+      .modal.ready {
+        display: flex !important;
+      }
+      .modal.ready.hidden {
+        opacity: 0;
+        visibility: hidden;
+      }
+      .modal.ready:not(.hidden) {
+        opacity: 1;
+        visibility: visible;
+      }
+
+      /* Loading states */
+      [data-brand-title], [data-hero-title], [data-palette-title] {
+        min-height: 1.2em;
+      }
+    </style>
+
     <!-- Open Graph for social sharing -->
     <meta property="og:title" content="Tasteology — What does cooking mean?" />
     <meta property="og:description" content="Explore flavour, colour and the science of cooking with molecular gastronomy expert Hervé This." />
@@ -107,7 +144,7 @@
     </footer>
 
     <!-- Modal root -->
-    <div id="modal-root" class="modal hidden" aria-hidden="true">
+    <div id="modal-root" class="modal" aria-hidden="true">
       <div class="overlay" data-close-modal></div>
       <figure class="dialog" role="dialog" aria-modal="true" aria-labelledby="modal-title">
         <button class="close" type="button" aria-label="Close (Esc)" data-close-modal>&times;</button>
