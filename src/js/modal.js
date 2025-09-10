@@ -80,15 +80,29 @@ export function openModal(src, alt, caption, openMethod = 'mouse'){
 
   // Handle click outside modal to close
   function handleClickOutside(e) {
-    // Close if clicking on overlay or close button
-    if (e.target.matches('[data-close-modal], .overlay')) {
+    // Close if clicking on overlay
+    if (e.target.classList.contains('overlay')) {
       closeModal('mouse');
       return;
     }
 
-    // Close if clicking outside the dialog content
+    // Close if clicking on close button
+    if (e.target.matches('[data-close-modal]')) {
+      closeModal('mouse');
+      return;
+    }
+
+    // Get the modal image and dialog elements
     const dialog = root.querySelector('.dialog');
-    if (!dialog.contains(e.target)) {
+    const modalImg = root.querySelector('.modal-img');
+
+    // Don't close if clicking on the image itself
+    if (e.target === modalImg) {
+      return;
+    }
+
+    // Close if clicking outside the dialog but inside the modal
+    if (e.target === root && !dialog.contains(e.target)) {
       closeModal('mouse');
     }
   }

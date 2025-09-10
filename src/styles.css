@@ -13,6 +13,33 @@
   --page-padding-mobile: 16px;
   --gutter: 10px;
   --col-width: 372px;
+
+
+  /* Advanced Visual Variables */
+  /* Shadows */
+  --shadow-subtle: 0 2px 8px rgba(0,0,0,0.1);
+  --shadow-medium: 0 4px 16px rgba(0,0,0,0.15);
+  --shadow-strong: 0 8px 32px rgba(0,0,0,0.25);
+  --shadow-modal: 0 20px 60px rgba(0,0,0,0.4);
+
+  /* Glows */
+  --glow-accent: 0 0 20px rgba(207,20,48,0.3);
+  --glow-soft: 0 0 15px rgba(255,255,255,0.1);
+  --glow-strong: 0 0 30px rgba(207,20,48,0.5);
+
+  /* Transitions */
+  --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-snappy: all 0.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  --transition-bounce: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  --transition-elastic: all 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+
+  /* Backdrop Effects */
+  --backdrop-blur: blur(12px);
+  --backdrop-blur-strong: blur(20px);
+
+  /* Transform Origins */
+  --transform-center: 50% 50%;
+  --transform-top: 50% 0%;
 }
 
 * {
@@ -137,6 +164,7 @@ a:focus, button:focus {
 }
 
 /* Images */
+/* Advanced Hover Effects for Mosaics */
 .mosaic__img {
   width: var(--col-width);
   object-fit: cover;
@@ -145,12 +173,49 @@ a:focus, button:focus {
   background: none;
   padding: 0;
   display: block;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  position: relative;
+  overflow: hidden;
+  border-radius: 0;
+  transition: var(--transition-smooth);
+  will-change: transform, box-shadow, filter;
+  transform-origin: var(--transform-center);
 }
 
+/* Advanced Hover Effects for Mosaics */
 .mosaic__img:hover {
-  transform: scale(1.02);
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+  transform: scale(1.05) translateZ(0);
+  box-shadow: var(--shadow-strong), var(--glow-soft);
+  filter: brightness(1.1) contrast(1.05);
+}
+
+/* Active/Press Effect */
+.mosaic__img:active {
+  transform: scale(1.02) translateZ(0);
+  transition: var(--transition-snappy);
+}
+
+/* Overlay Effect on Hover */
+.mosaic__img::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(
+    135deg,
+    rgba(207,20,48,0.1) 0%,
+    rgba(255,255,255,0.05) 50%,
+    rgba(207,20,48,0.15) 100%
+  );
+  opacity: 0;
+  transition: var(--transition-smooth);
+  z-index: 1;
+  pointer-events: none;
+}
+
+.mosaic__img:hover::before {
+  opacity: 1;
 }
 
 .mosaic__img--left {
@@ -167,6 +232,14 @@ a:focus, button:focus {
   height: 100%;
   object-fit: cover;
   display: block;
+  transition: var(--transition-smooth);
+  will-change: transform, filter;
+}
+
+/* Image Enhancement on Hover */
+.mosaic__img:hover img {
+  transform: scale(1.02);
+  filter: brightness(1.05) saturate(1.1);
 }
 
 /* Article */
@@ -255,22 +328,61 @@ a:focus, button:focus {
 }
 
 /* Cards */
+/* Cards with Advanced Hover Effects */
 .card-link {
   display: block;
   text-decoration: none;
   color: inherit;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
-  border-radius: 4px;
+  transition: var(--transition-smooth);
+  border-radius: 0;
+  position: relative;
+  overflow: hidden;
+  will-change: transform, box-shadow;
+  transform-origin: var(--transform-center);
 }
 
+/* Advanced Card Hover Effects */
 .card-link:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+  transform: translateY(-8px) scale(1.02);
+  box-shadow: var(--shadow-modal), var(--glow-accent);
 }
 
+/* Active/Press Effect for Cards */
+.card-link:active {
+  transform: translateY(-4px) scale(1.01);
+  transition: var(--transition-snappy);
+}
+
+/* Luminous Overlay on Hover */
+.card-link::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(
+    45deg,
+    rgba(255,255,255,0.03) 0%,
+    rgba(207,20,48,0.08) 50%,
+    rgba(255,255,255,0.05) 100%
+  );
+  opacity: 0;
+  transition: var(--transition-smooth);
+  z-index: 1;
+  pointer-events: none;
+  border-radius: 0;
+}
+
+.card-link:hover::before {
+  opacity: 1;
+}
+
+/* Enhanced Focus State */
 .card-link:focus {
-  outline: 2px solid var(--c-accent);
-  outline-offset: 2px;
+  outline: none;
+  box-shadow: var(--shadow-medium), var(--glow-strong);
+  transform: translateY(-2px);
 }
 
 .card {
@@ -292,13 +404,28 @@ a:focus, button:focus {
   justify-content: center;
   overflow: hidden;
   border-radius: 0;
+  position: relative;
+  transition: var(--transition-smooth);
 }
 
+/* Enhanced Card Image Effects */
 .card__media img {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  object-position: center;
+  transition: var(--transition-elastic);
+  will-change: transform, filter;
+}
+
+/* Image Transformation on Card Hover */
+.card-link:hover .card__media img {
+  transform: scale(1.08) rotate(0.5deg);
+  filter: brightness(1.1) contrast(1.05) saturate(1.15);
+}
+
+/* Media Container Enhancement on Hover */
+.card-link:hover .card__media {
+  box-shadow: var(--shadow-medium);
 }
 
 .card__title {
@@ -337,7 +464,7 @@ a:focus, button:focus {
   text-align: center;
 }
 
-/* Modal */
+/* Enhanced Modal with Backdrop Blur */
 .modal.hidden {
   opacity: 0;
   visibility: hidden;
@@ -353,82 +480,119 @@ a:focus, button:focus {
   justify-content: center;
   opacity: 1;
   visibility: visible;
-  transition: opacity 0.3s ease, visibility 0.3s ease;
+  transition: var(--transition-smooth);
+  backdrop-filter: var(--backdrop-blur);
+  -webkit-backdrop-filter: var(--backdrop-blur);
 }
 
+/* Enhanced Overlay with Blur Effect */
 .modal .overlay {
   position: absolute;
   inset: 0;
-  background: rgba(0,0,0,.9);
+  background: rgba(0,0,0,.85);
   cursor: pointer;
-  transition: background-color 0.3s ease;
+  transition: var(--transition-smooth);
+  backdrop-filter: var(--backdrop-blur-strong);
+  -webkit-backdrop-filter: var(--backdrop-blur-strong);
 }
 
 .modal.hidden .overlay {
   background: rgba(0,0,0,0);
+  backdrop-filter: blur(0px);
+  -webkit-backdrop-filter: blur(0px);
 }
 
+/* Enhanced Dialog with Scale and Blur Transition - Adapts to image size */
 .modal .dialog {
   position: relative;
   margin: 0;
-  width: min(95vw, 1200px);
   background: transparent;
   border-radius: 0;
   padding: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
+  display: inline-block;
+  max-width: 70vw;
+  max-height: 70vh;
   transform: scale(1) translateY(0);
-  transition: transform 0.3s ease;
+  transition: var(--transition-elastic);
+  filter: blur(0px);
+  will-change: transform, filter;
 }
 
+/* Enhanced Hidden State with Blur */
 .modal.hidden .dialog {
-  transform: scale(0.9) translateY(-20px);
+  transform: scale(0.85) translateY(-30px);
+  filter: blur(8px);
 }
 
+/* Enhanced Modal Image with Shadows */
 .modal-img {
-  max-width: 800px;
-  max-height: 600px;
+  max-width: 70vw;
+  max-height: 70vh;
+  width: auto;
+  height: auto;
   object-fit: contain;
   border-radius: 0;
-  cursor: pointer;
-  transition: transform 0.3s ease, filter 0.3s ease;
+  cursor: default;
+  transition: var(--transition-smooth);
+  box-shadow: var(--shadow-modal);
+  will-change: transform, filter, box-shadow;
+  position: relative;
+  display: block;
 }
 
+/* Subtle Image Hover Effect */
 .modal-img:hover {
-  transform: scale(1.02);
-  filter: brightness(1.05);
+  transform: scale(1.01);
+  filter: brightness(1.03) contrast(1.02);
+  box-shadow: var(--shadow-modal), var(--glow-soft);
 }
 
+/* Enhanced Close Button with Glow Effects - Inside image corner */
 .modal .close {
   position: absolute;
-  top: 20px;
-  right: 20px;
+  top: 10px;
+  right: 10px;
   border: 0;
-  background: rgba(0,0,0,0.7);
+  background: rgba(0,0,0,0.9);
   color: #fff;
-  font-size: 32px;
+  font-size: 24px;
   cursor: pointer;
-  width: 50px;
-  height: 50px;
+  width: 40px;
+  height: 40px;
   display: flex;
   align-items: center;
   justify-content: center;
   border-radius: 50%;
   z-index: 1001;
   outline: none !important;
-  box-shadow: none !important;
+  box-shadow: var(--shadow-strong);
+  transition: var(--transition-smooth);
+  will-change: transform, background-color, box-shadow;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
 }
 
+/* Enhanced Close Button Hover Effects */
 .modal .close:hover {
-  background: rgba(0,0,0,0.9);
+  background: var(--c-accent);
+  transform: scale(1.1);
+  box-shadow: var(--shadow-strong), var(--glow-accent);
+  color: #fff;
 }
 
+/* Active Press Effect */
+.modal .close:active {
+  transform: scale(1.05);
+  transition: var(--transition-snappy);
+}
+
+/* Enhanced Focus State */
 .modal .close:focus {
   outline: none !important;
   border: none !important;
-  box-shadow: 0 0 0 2px rgba(255,255,255,0.5) !important;
+  box-shadow: var(--shadow-strong), var(--glow-strong) !important;
+  background: var(--c-accent);
+  transform: scale(1.05);
 }
 
 .modal-caption {
@@ -446,22 +610,18 @@ a:focus, button:focus {
 /* Modal responsive */
 @media (max-width: 768px) {
   .modal .dialog {
-    margin: 0;
-    width: 95vw;
     max-width: 95vw;
-    padding: 10px;
+    max-height: 85vh;
   }
 
   .modal-img {
-    max-width: 100%;
-    max-height: 80vh;
-    width: auto;
-    height: auto;
+    max-width: 95vw;
+    max-height: 85vh;
   }
 
   .modal .close {
-    top: 5px;
-    right: 5px;
+    top: 8px;
+    right: 8px;
     width: 36px;
     height: 36px;
     font-size: 20px;
@@ -1016,4 +1176,194 @@ a:focus, button:focus {
     line-height: 1.4;
     max-width: 280px;
   }
+}
+
+/* ========================================
+   SOPHISTICATED ENTRANCE ANIMATIONS
+   ======================================== */
+
+/* Advanced Keyframe Animations */
+@keyframes fadeInUpAdvanced {
+  0% {
+    opacity: 0;
+    transform: translateY(40px) scale(0.95);
+    filter: blur(4px);
+  }
+  60% {
+    opacity: 0.8;
+    transform: translateY(-5px) scale(1.02);
+    filter: blur(1px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+    filter: blur(0px);
+  }
+}
+
+@keyframes slideInFromLeft {
+  0% {
+    opacity: 0;
+    transform: translateX(-60px) rotate(-2deg);
+    filter: blur(3px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0) rotate(0deg);
+    filter: blur(0px);
+  }
+}
+
+@keyframes slideInFromRight {
+  0% {
+    opacity: 0;
+    transform: translateX(60px) rotate(2deg);
+    filter: blur(3px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0) rotate(0deg);
+    filter: blur(0px);
+  }
+}
+
+@keyframes scaleInElastic {
+  0% {
+    opacity: 0;
+    transform: scale(0.3) rotate(-5deg);
+    filter: blur(5px);
+  }
+  50% {
+    opacity: 0.8;
+    transform: scale(1.05) rotate(1deg);
+    filter: blur(2px);
+  }
+  70% {
+    transform: scale(0.98) rotate(-0.5deg);
+    filter: blur(1px);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1) rotate(0deg);
+    filter: blur(0px);
+  }
+}
+
+@keyframes bounceIn {
+  0% {
+    opacity: 0;
+    transform: scale(0.3) translateY(20px);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.05) translateY(-5px);
+  }
+  70% {
+    transform: scale(0.9) translateY(0);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+/* Micro-interactions and Smooth Enhancements */
+
+/* Smooth Scroll */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Will-change optimization for performance */
+.mosaic__img,
+.card-link,
+.modal .dialog,
+.modal .close {
+  will-change: transform;
+}
+
+/* Enhanced Focus States with Glow */
+.mosaic__img:focus-visible {
+  outline: none;
+  box-shadow: var(--shadow-medium), var(--glow-accent);
+  transform: scale(1.02);
+}
+
+.card-link:focus-visible {
+  outline: none;
+  box-shadow: var(--shadow-strong), var(--glow-strong);
+  transform: translateY(-4px) scale(1.01);
+}
+
+/* Advanced Transition Curves - Scoped to specific elements */
+.mosaic__img,
+.card-link,
+.modal .dialog,
+.modal .close,
+button {
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Enhanced button interactions */
+button {
+  transition: var(--transition-smooth);
+}
+
+button:hover {
+  transform: translateY(-1px);
+}
+
+button:active {
+  transform: translateY(0);
+  transition: var(--transition-snappy);
+}
+
+/* Temporary: Make content visible immediately for debugging */
+.site-header,
+.mosaic,
+.palette,
+.site-footer {
+  opacity: 1 !important;
+  transform: translateY(0) !important;
+}
+
+/* Loading states activated via JavaScript - Simplified */
+.loaded .site-header {
+  animation: fadeInUpAdvanced 0.8s ease-out 0.1s both;
+}
+
+.loaded .mosaic {
+  animation: fadeInUpAdvanced 0.9s ease-out 0.3s both;
+}
+
+.loaded .mosaic__img--left {
+  animation: fadeInUpAdvanced 1.0s ease-out 0.6s both;
+}
+
+.loaded .mosaic__img--rt {
+  animation: fadeInUpAdvanced 0.8s ease-out 0.8s both;
+}
+
+.loaded .mosaic__img--rb {
+  animation: fadeInUpAdvanced 0.8s ease-out 1.0s both;
+}
+
+.loaded .palette {
+  animation: fadeInUpAdvanced 0.8s ease-out 1.2s both;
+}
+
+.loaded .card:nth-child(1) {
+  animation: fadeInUpAdvanced 0.6s ease-out 1.4s both;
+}
+
+.loaded .card:nth-child(2) {
+  animation: fadeInUpAdvanced 0.6s ease-out 1.6s both;
+}
+
+.loaded .card:nth-child(3) {
+  animation: fadeInUpAdvanced 0.6s ease-out 1.8s both;
+}
+
+.loaded .site-footer {
+  animation: fadeInUpAdvanced 0.7s ease-out 2.0s both;
 }

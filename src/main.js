@@ -29,9 +29,7 @@ async function load(){
     showErrorState();
     document.body.classList.add('loaded');
   }
-}
-
-/**
+}/**
  * Initialize modal to prevent flash of content
  */
 function initializeModal() {
@@ -235,14 +233,17 @@ function renderCards(data){
 
 /**
  * Sets up modal event handlers
- * Handles click-to-close, overlay close, ESC key, and image click
+ * Handles click-to-close, overlay close, ESC key
  */
 function wireModal(){
   const root = document.getElementById('modal-root');
 
-  // Handle clicks on overlay, close button, or image itself
+  // Handle clicks on overlay and close button only
   root.addEventListener('click', (e) => {
-    if(e.target.matches('[data-close-modal], .overlay, .modal-img')) closeModal();
+    // Only close on overlay or close button, not on image
+    if(e.target.matches('[data-close-modal]') || e.target.classList.contains('overlay')) {
+      closeModal();
+    }
   });
 
   // ESC key handler for accessibility
